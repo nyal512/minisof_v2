@@ -38,25 +38,25 @@ public class AccountController{
         }
     }
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AccountEntity account) {
+    public ResponseEntity<Boolean> register(@RequestBody AccountEntity account) {
         if (!accountService.exist(account.getUsername())) {
             account.setRole(USER);
             account.setCreated(new Date());
             accountService.save(account);
-            return new ResponseEntity<>("Account registered successfully", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
     }
     @PutMapping("/editAccount") // áp dụng cho tài khoản admin
-    public ResponseEntity<String> editAccount(@RequestBody AccountEntity account) {
+    public ResponseEntity<Boolean> editAccount(@RequestBody AccountEntity account) {
         AccountEntity existingAccount = accountService.getAccountByUsername(account.getUsername());
         if (existingAccount != null) {
             existingAccount.setRole(account.getRole());
             accountService.save(existingAccount);
-            return new ResponseEntity<>("Account updated successfully", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
     @PutMapping("/changePassword")
@@ -81,6 +81,16 @@ public class AccountController{
             }
         } else {
             return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAccount(@RequestParam("username") String username) {
+        AccountEntity existingAccount = accountService.getAccountByUsername(username);
+        if (existingAccount != null) {
+            accountService.delete(existingAccount);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
 }
