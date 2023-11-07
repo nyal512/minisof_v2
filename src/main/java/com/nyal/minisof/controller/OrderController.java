@@ -20,7 +20,7 @@ public class OrderController {
         if (order != null){
             return new ResponseEntity<>(order, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/listOrder")
@@ -29,7 +29,7 @@ public class OrderController {
             List<OrderEntity> listOrder = orderService.findAll();
             return new ResponseEntity<>(listOrder, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/orderByStatus")
@@ -38,7 +38,7 @@ public class OrderController {
             List<OrderEntity> listOrder = orderService.getAllByStatus(status);
             return new ResponseEntity<>(listOrder, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/getByAccountIdAndStatus")
@@ -47,7 +47,7 @@ public class OrderController {
             List<OrderEntity> listOrder = orderService.getByAccountIdAndStatus(accountId, status);
             return new ResponseEntity<>(listOrder, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PostMapping("/addOrder")
@@ -56,7 +56,7 @@ public class OrderController {
             orderService.save(order);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(false, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PutMapping("/updateStatus")
@@ -65,7 +65,7 @@ public class OrderController {
             orderService.updateStatus(status, orderId);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(false, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

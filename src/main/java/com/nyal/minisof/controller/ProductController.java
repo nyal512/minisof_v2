@@ -32,7 +32,7 @@ public class ProductController {
         if (product != null){
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/top6NewProduct")
@@ -41,7 +41,7 @@ public class ProductController {
         if (listProductNew != null){
             return new ResponseEntity<>(listProductNew, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/top6ProductByCategory")
@@ -50,7 +50,7 @@ public class ProductController {
         if (listProductByCategory != null){
             return new ResponseEntity<>(listProductByCategory, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/listNewProduct")
@@ -59,7 +59,7 @@ public class ProductController {
         if (listProductNew != null){
             return new ResponseEntity<>(listProductNew, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/listProductByCategory")
@@ -68,7 +68,7 @@ public class ProductController {
         if (listProductByCategory != null){
             return new ResponseEntity<>(listProductByCategory, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/listProductByKeySearch")
@@ -77,7 +77,7 @@ public class ProductController {
         if (listProductByKeySearch != null){
             return new ResponseEntity<>(listProductByKeySearch, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(null, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PostMapping("/addProduct")
@@ -88,7 +88,7 @@ public class ProductController {
             productService.save(product);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>(false, HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
