@@ -32,10 +32,6 @@ public class OrderImpl implements OrderService{
         return orderRepository.findAll();
     }
 
-    @Override
-    public List<OrderEntity> findAllById(List<Integer> listOrderId) {
-        return orderRepository.findAllById(listOrderId);
-    }
 
     @Override
     public Optional<OrderEntity> findById(Integer orderId) {
@@ -60,5 +56,10 @@ public class OrderImpl implements OrderService{
     @Override
     public void updateStatus(Integer status, Integer orderId) {
         orderRepository.updateStatus(status, orderId);
+    }
+
+    @Override
+    public List<OrderEntity> getAllByStatus(Integer status) {
+        return orderRepository.getAllByStatus(status);
     }
 }

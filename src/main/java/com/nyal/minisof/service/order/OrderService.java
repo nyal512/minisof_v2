@@ -11,10 +11,10 @@ public interface OrderService {
     boolean exist(Integer orderId);
     boolean existById(Integer orderId);
     List<OrderEntity> findAll();
-    List<OrderEntity> findAllById(List<Integer> listOrderId);
     Optional<OrderEntity> findById(Integer orderId);
     OrderEntity save(OrderEntity order);
     List<OrderEntity> saveAll(List<OrderEntity> listOrder);
     List<OrderEntity> getByAccountIdAndStatus(Integer accountId, Integer status);
     void updateStatus(Integer status, Integer orderId);
+    List<OrderEntity> getAllByStatus(Integer status);
 }
