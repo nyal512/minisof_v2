@@ -1,6 +1,5 @@
 package com.nyal.minisof.controller;
 
-import com.nyal.minisof.model.AccountEntity;
 import com.nyal.minisof.model.ProductEntity;
 import com.nyal.minisof.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
