@@ -67,6 +67,11 @@ public class UserImpl implements UserService{
     }
 
     @Override
+    public Optional<UserEntity> findByNumberPhone(String numberPhone) {
+        return userRepository.findByNumberPhone(numberPhone);
+    }
+
+    @Override
     public UserEntity save(UserEntity user) {
         return userRepository.save(user);
     }

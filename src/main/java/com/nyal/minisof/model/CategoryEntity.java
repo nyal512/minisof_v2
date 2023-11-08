@@ -1,5 +1,7 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +14,7 @@ public class CategoryEntity implements Serializable {
     private String categoryName;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductEntity> products;
 
     public CategoryEntity() {

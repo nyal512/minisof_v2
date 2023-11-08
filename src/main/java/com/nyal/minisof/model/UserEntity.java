@@ -1,5 +1,7 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,14 +17,16 @@ public class UserEntity implements Serializable {
     private String phone;
     private String address;
     private String email;
+    private String verifyCode;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private AccountEntity account;
 
     public UserEntity() {
     }
 
-    public UserEntity(int userId, String name, Date dob, boolean gender, String phone, String address, String email, AccountEntity account) {
+    public UserEntity(int userId, String name, Date dob, boolean gender, String phone, String address, String email, String verifyCode, AccountEntity account) {
         this.userId = userId;
         this.name = name;
         this.dob = dob;
@@ -30,6 +34,7 @@ public class UserEntity implements Serializable {
         this.phone = phone;
         this.address = address;
         this.email = email;
+        this.verifyCode =verifyCode;
         this.account = account;
     }
 
@@ -87,6 +92,14 @@ public class UserEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 
     public AccountEntity getAccount() {

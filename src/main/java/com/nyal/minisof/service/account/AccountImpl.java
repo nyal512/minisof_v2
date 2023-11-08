@@ -68,6 +68,11 @@ public class AccountImpl implements AccountService{
     }
 
     @Override
+    public AccountEntity findByUserId(Integer userId) {
+        return accountRepository.getAccountByUserId(userId);
+    }
+
+    @Override
     public AccountEntity save(AccountEntity user) {
         return accountRepository.save(user);
     }
@@ -85,7 +90,6 @@ public class AccountImpl implements AccountService{
     @Override
     public boolean authenticateAccount(String username, String password) {
         AccountEntity account = getAccountByUsername(username);
-        System.out.println("account: "+account.getUsername());
         return account != null && account.getPassword().equals(password);
     }
 }

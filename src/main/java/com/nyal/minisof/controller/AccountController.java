@@ -68,6 +68,7 @@ public class AccountController{
     public ResponseEntity<Boolean> editAccount(@RequestBody AccountEntity account) {
         AccountEntity existingAccount = accountService.getAccountByUsername(account.getUsername());
         if (existingAccount != null) {
+            existingAccount.setAccountId(account.getAccountId());
             existingAccount.setRole(account.getRole());
             accountService.save(existingAccount);
             return new ResponseEntity<>(true, HttpStatus.OK);

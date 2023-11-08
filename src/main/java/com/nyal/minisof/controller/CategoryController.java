@@ -47,6 +47,9 @@ public class CategoryController{
     public ResponseEntity<Boolean> editAccount(@RequestBody CategoryEntity category) {
         CategoryEntity existingCategory = categoryService.findById(category.getCategoryId()).get();
         if (existingCategory != null) {
+            existingCategory.setCategoryId(category.getCategoryId());
+            existingCategory.setCategoryName(category.getCategoryName());
+            existingCategory.setProducts(category.getProducts());
             categoryService.save(existingCategory);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
@@ -54,13 +57,13 @@ public class CategoryController{
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAccount(@RequestParam("category_id") int categoryId) {
+    public ResponseEntity<Boolean> deleteAccount(@RequestParam("category_id") int categoryId) {
         CategoryEntity existingCategory = categoryService.findById(categoryId).get();
         if (existingCategory != null) {
             categoryService.delete(existingCategory);
-            return new ResponseEntity<>("Account deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

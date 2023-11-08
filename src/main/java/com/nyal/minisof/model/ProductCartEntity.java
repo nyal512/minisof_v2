@@ -1,5 +1,7 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,6 +12,7 @@ public class ProductCartEntity implements Serializable {
     private int productCartId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "product_id")
     private ProductEntity product;
 

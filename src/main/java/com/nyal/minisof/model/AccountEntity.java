@@ -1,8 +1,11 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class AccountEntity implements Serializable {
@@ -15,19 +18,24 @@ public class AccountEntity implements Serializable {
     private Date created;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private UserEntity user;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<TokenEntity> tokenList;
 
     public AccountEntity() {
     }
 
-    public AccountEntity(int accountId, String username, String password, int role, Date created, UserEntity user) {
+    public AccountEntity(int accountId, String username, String password, int role, Date created, UserEntity user, List<TokenEntity> tokenList) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
         this.role = role;
         this.created = created;
         this.user = user;
+        this.tokenList = tokenList;
     }
 
     public int getAccountId() {
@@ -76,5 +84,13 @@ public class AccountEntity implements Serializable {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public List<TokenEntity> getTokenList() {
+        return tokenList;
+    }
+
+    public void setTokenList(List<TokenEntity> tokenList) {
+        this.tokenList = tokenList;
     }
 }

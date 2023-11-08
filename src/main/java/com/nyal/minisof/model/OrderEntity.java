@@ -1,5 +1,7 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +19,7 @@ public class OrderEntity implements Serializable {
     private String transport;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "account_id")
     private AccountEntity account;
 

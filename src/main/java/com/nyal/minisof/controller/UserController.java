@@ -31,12 +31,12 @@ public class UserController {
         return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
     @PutMapping("/edit")
-    public ResponseEntity<String> editUser(@RequestBody UserEntity user){
+    public ResponseEntity<Boolean> editUser(@RequestBody UserEntity user){
         if (user != null && userService.existById(user.getUserId())){
             userService.save(user);
-            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -95,6 +95,7 @@ public class ProductController {
     public ResponseEntity<Boolean> editProduct(@RequestBody ProductEntity product){
         ProductEntity existingProduct = productService.findById(product.getProductId()).get();
         if (existingProduct != null) {
+            existingProduct.setProductId(product.getProductId());
             existingProduct.setName(product.getName());
             existingProduct.setDescriptions(product.getDescriptions());
             existingProduct.setCategory(product.getCategory());

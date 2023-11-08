@@ -17,6 +17,7 @@ public interface AccountService {
     List<AccountEntity> findAll();
     List<AccountEntity> findAllById(List<Integer> ids);
     Optional<AccountEntity> findById(Integer id);
+    AccountEntity findByUserId(Integer userId);
     AccountEntity save(AccountEntity user);
     List<AccountEntity> saveAll(List<AccountEntity> listUser);
     AccountEntity getAccountByUsername(String username);

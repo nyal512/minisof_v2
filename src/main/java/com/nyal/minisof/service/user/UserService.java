@@ -18,6 +18,7 @@ public interface UserService {
     List<UserEntity> findAll();
     List<UserEntity> findAllById(List<Integer> ids);
     Optional<UserEntity> findById(Integer id);
+    Optional<UserEntity> findByNumberPhone(String numberPhone);
     UserEntity save(UserEntity user);
     List<UserEntity> saveAll(List<UserEntity> listUser);
 }
