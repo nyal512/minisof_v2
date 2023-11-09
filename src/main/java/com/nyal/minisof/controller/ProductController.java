@@ -34,6 +34,15 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/getProductByName")
+    public ResponseEntity<ProductEntity> getProductByName(@RequestParam("product_name") String productName){
+        ProductEntity product = productService.findByName(productName);
+        if (product != null){
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @GetMapping("/top6NewProduct")
     public ResponseEntity<List<ProductEntity>> getTop6NewProduct(){
         List<ProductEntity> listProductNew = productService.getTop6NewProducts();

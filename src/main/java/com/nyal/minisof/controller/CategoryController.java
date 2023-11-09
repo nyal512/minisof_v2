@@ -25,6 +25,15 @@ public class CategoryController{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/getCategoryByName")
+    public ResponseEntity<CategoryEntity> getCategoryByName(@RequestParam("category_name") String categoryName) {
+        CategoryEntity category = categoryService.findByName(categoryName);
+        if (category != null) {
+            return new ResponseEntity<>(category, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @GetMapping("/getAllCategory")
     public ResponseEntity<List<CategoryEntity>> getAllCategory() {
         List<CategoryEntity> listCategory = categoryService.findAll();

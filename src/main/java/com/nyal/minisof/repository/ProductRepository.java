@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>{
     @Query(value = "select * from `product_entity`", nativeQuery = true)
     public List<ProductEntity> findAll();
+    @Query(value = "select * from `product_entity` where name = ?1", nativeQuery = true)
+    public ProductEntity findByName(String name);
     @Query(value = "select * from `product_entity` where name like ?1", nativeQuery = true)
     public List<ProductEntity> findAllByName(String name);
     @Query(value = "select * from `product_entity` where category_id = ?1", nativeQuery = true)

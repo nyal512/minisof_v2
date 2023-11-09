@@ -34,6 +34,7 @@ public interface ProductService {
     ProductEntity save(ProductEntity product);
 
     List<ProductEntity> saveAll(List<ProductEntity> listProduct);
+    ProductEntity findByName(String productName);
 
     List<ProductEntity> findAllByCategory(Integer category_id);
 

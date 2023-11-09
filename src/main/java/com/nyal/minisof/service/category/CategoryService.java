@@ -18,6 +18,7 @@ public interface CategoryService {
     List<CategoryEntity> findAll();
     List<CategoryEntity> findAllById(List<Integer> listCategoryId);
     Optional<CategoryEntity> findById(Integer categoryId);
+    CategoryEntity findByName(String categoryName);
     CategoryEntity save(CategoryEntity category);
     List<CategoryEntity> saveAll(List<CategoryEntity> listCategory);
 }

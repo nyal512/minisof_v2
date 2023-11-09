@@ -63,6 +63,11 @@ public class CategoryImpl implements CategoryService{
     }
 
     @Override
+    public CategoryEntity findByName(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    @Override
     public Optional<CategoryEntity> findById(Integer categoryId) {
         return categoryRepository.findById(categoryId);
     }

@@ -44,7 +44,7 @@ public class AccountImpl implements AccountService{
 
     @Override
     public boolean exist(String username) {
-        return accountRepository.existsByUsername(username)!= 0;
+        return accountRepository.existsByUsername(username) != 0;
     }
 
     @Override
