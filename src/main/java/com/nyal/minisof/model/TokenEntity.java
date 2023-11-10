@@ -1,6 +1,7 @@
 package com.nyal.minisof.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,6 @@ public class TokenEntity implements Serializable {
     private boolean accessToken;
     private String deviceToken;
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "account_id", referencedColumnName = "accountId")
     private AccountEntity account;
 

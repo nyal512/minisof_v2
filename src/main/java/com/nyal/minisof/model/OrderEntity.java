@@ -19,7 +19,6 @@ public class OrderEntity implements Serializable {
     private String transport;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "account_id")
     private AccountEntity account;
 

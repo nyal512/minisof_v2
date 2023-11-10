@@ -18,7 +18,6 @@ public class AccountEntity implements Serializable {
     private Date created;
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private UserEntity user;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
