@@ -1,5 +1,6 @@
 package com.nyal.minisof.service.user;
 
+import com.nyal.minisof.model.AccountEntity;
 import com.nyal.minisof.model.UserEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +22,5 @@ public interface UserService {
     Optional<UserEntity> findByNumberPhone(String numberPhone);
     UserEntity save(UserEntity user);
     List<UserEntity> saveAll(List<UserEntity> listUser);
+    UserEntity getUserByName(String username);
 }

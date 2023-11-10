@@ -20,6 +20,14 @@ public class UserController {
         }
         return null;
     }
+    @GetMapping("/getUserByName")
+    public ResponseEntity<UserEntity> getUserByName(@RequestParam("name") String name){
+        if (name != null && userService.getUserByName(name) != null){
+            UserEntity user = userService.getUserByName(name);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     @PostMapping("/addUser")
     public ResponseEntity<Boolean> addUser(@RequestBody UserEntity user){
         if (user != null){

@@ -1,5 +1,6 @@
 package com.nyal.minisof.service.user;
 
+import com.nyal.minisof.model.AccountEntity;
 import com.nyal.minisof.model.UserEntity;
 import com.nyal.minisof.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,10 @@ public class UserImpl implements UserService{
     @Override
     public List<UserEntity> saveAll(List<UserEntity> listUser) {
         return userRepository.saveAll(listUser);
+    }
+
+    @Override
+    public UserEntity getUserByName(String username) {
+        return userRepository.getUserByName(username);
     }
 }

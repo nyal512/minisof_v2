@@ -12,6 +12,7 @@ public class TokenEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tokenId;
     private boolean accessToken;
+    @Lob
     private String deviceToken;
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "accountId")
