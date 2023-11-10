@@ -21,14 +21,14 @@ public class UserController {
         return null;
     }
     @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestBody UserEntity user){
+    public ResponseEntity<Boolean> addUser(@RequestBody UserEntity user){
         if (user != null){
             if (!userService.exist(user.getName())){
                 userService.save(user);
-                return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+                return new ResponseEntity<>(true, HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
     @PutMapping("/edit")
     public ResponseEntity<Boolean> editUser(@RequestBody UserEntity user){
