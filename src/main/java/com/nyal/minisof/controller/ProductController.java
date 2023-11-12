@@ -1,5 +1,6 @@
 package com.nyal.minisof.controller;
 
+import com.nyal.minisof.model.CategoryEntity;
 import com.nyal.minisof.model.ProductEntity;
 import com.nyal.minisof.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,5 +127,10 @@ public class ProductController {
         } else {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
+    }
+    public String covertDate(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
     }
 }

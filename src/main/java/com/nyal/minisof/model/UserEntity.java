@@ -12,7 +12,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
     private String name;
-    private Date dob;
+    private String dob;
     private boolean gender;
     private String phone;
     private String address;
@@ -26,7 +26,7 @@ public class UserEntity implements Serializable {
     public UserEntity() {
     }
 
-    public UserEntity(int userId, String name, Date dob, boolean gender, String phone, String address, String email, String verifyCode, AccountEntity account) {
+    public UserEntity(int userId, String name, String dob, boolean gender, String phone, String address, String email, String verifyCode, AccountEntity account) {
         this.userId = userId;
         this.name = name;
         this.dob = dob;
@@ -54,11 +54,11 @@ public class UserEntity implements Serializable {
         this.name = name;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

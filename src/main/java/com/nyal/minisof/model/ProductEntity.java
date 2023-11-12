@@ -19,7 +19,6 @@ public class ProductEntity implements Serializable {
     private int status;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 

@@ -77,11 +77,11 @@ public class AccountController{
         }
     }
     @PutMapping("/changePassword")
-    public ResponseEntity<String> changePassword(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam String newPassword,
-            @RequestParam String confirmPassword) throws NoSuchAlgorithmException {
+    public ResponseEntity<Boolean> changePassword(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("new_password") String newPassword,
+            @RequestParam("confirm_password") String confirmPassword) throws NoSuchAlgorithmException {
         AccountEntity existingAccount = accountService.getAccountByUsername(username);
         if (validatePassword(password) == RESULT_OK && validatePassword(newPassword) == RESULT_OK && validatePassword(confirmPassword) == RESULT_OK){
             password = ConvertPasswordMD5.convertHashToString(password);
@@ -91,18 +91,18 @@ public class AccountController{
                         newPassword = ConvertPasswordMD5.convertHashToString(newPassword);
                         existingAccount.setPassword(newPassword);
                         accountService.save(existingAccount);
-                        return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
+                        return new ResponseEntity<>(true, HttpStatus.OK);
                     } else {
-                        return new ResponseEntity<>("New password and confirmation do not match", HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                     }
                 } else {
-                    return new ResponseEntity<>("Current password is incorrect", HttpStatus.UNAUTHORIZED);
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
                 }
             } else {
-                return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } else{
-            return new ResponseEntity<>("Account invalidate", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/delete")

@@ -64,8 +64,7 @@ public class TokenController {
                 if (tokenService.existsByDeviceTokenAndAccountId(deviceToken, account.getAccountId())) {
                     TokenEntity token = tokenService.findByDeviceTokenAndAccountId(deviceToken, account.getAccountId());
                     if (token != null){
-                        token.setAccessToken(false);
-                        tokenService.save(token);
+                        tokenService.delete(token);
                         return new ResponseEntity<>(true, HttpStatus.OK);// logout successful
                     } else{
                         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
