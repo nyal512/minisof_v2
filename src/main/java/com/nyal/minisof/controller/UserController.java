@@ -1,5 +1,6 @@
 package com.nyal.minisof.controller;
 
+import com.nyal.minisof.model.AccountEntity;
 import com.nyal.minisof.model.UserEntity;
 import com.nyal.minisof.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,16 @@ public class UserController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAccount(@RequestParam("name") String name) {
+        UserEntity existingUser = userService.getUserByName(name);
+        if (existingUser != null) {
+            userService.delete(existingUser);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
 }
