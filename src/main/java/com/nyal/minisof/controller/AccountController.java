@@ -2,6 +2,7 @@ package com.nyal.minisof.controller;
 
 import com.nyal.minisof.controller.convert_password.ConvertPasswordMD5;
 import com.nyal.minisof.model.AccountEntity;
+import com.nyal.minisof.model.ProductEntity;
 import com.nyal.minisof.service.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -34,6 +37,25 @@ public class AccountController{
         if (account != null) {
             return new ResponseEntity<>(account, HttpStatus.OK);
         } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/listAccount")
+    public ResponseEntity<List<AccountEntity>> getAllAccount(){
+        List<AccountEntity> listAccount = new ArrayList<>();
+        if (accountService.findAll() != null){
+            listAccount.addAll(accountService.findAll());
+            return new ResponseEntity<>(listAccount, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/listAccountByKeySearch")
+    public ResponseEntity<List<AccountEntity>> findAllByKeySearch(@RequestParam("name") String key){
+        List<AccountEntity> listProductByKeySearch = accountService.findAllByName(key);
+        if (listProductByKeySearch != null){
+            return new ResponseEntity<>(listProductByKeySearch, HttpStatus.OK);
+        } else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

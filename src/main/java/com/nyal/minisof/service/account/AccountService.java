@@ -16,6 +16,7 @@ public interface AccountService {
     boolean existById(Integer id);
     List<AccountEntity> findAll();
     List<AccountEntity> findAllById(List<Integer> ids);
+    List<AccountEntity> findAllByName(String key);
     Optional<AccountEntity> findById(Integer id);
     AccountEntity findByUserId(Integer userId);
     AccountEntity save(AccountEntity user);

@@ -92,4 +92,9 @@ public class AccountImpl implements AccountService{
         AccountEntity account = getAccountByUsername(username);
         return account != null && account.getPassword().equals(password);
     }
+
+    @Override
+    public List<AccountEntity> findAllByName(String key) {
+        return accountRepository.findAllByName(key);
+    }
 }
