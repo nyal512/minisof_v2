@@ -2,6 +2,8 @@ package com.nyal.minisof.controller;
 
 import com.nyal.minisof.config.VnPayConfig;
 import com.nyal.minisof.dto.PaymentDTO;
+import com.nyal.minisof.dto.UrlDetail;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,7 @@ import java.util.*;
 @RequestMapping("api/pay/vnPay")
 public class PaymentController {
     @PostMapping("/payment")
-    public ResponseEntity<?> vnpayPayment(@RequestBody PaymentDTO paymentDTO) throws IOException {
+    public ResponseEntity<UrlDetail> vnpayPayment(@RequestBody PaymentDTO paymentDTO) throws IOException {
         String vnp_OrderInfo = paymentDTO.getDescription();
         String vnp_TxnRef = VnPayConfig.getRandomNumber(8);
         String bank_code = paymentDTO.getBankCode();
@@ -87,8 +89,9 @@ public class PaymentController {
         String vnp_SecureHash = VnPayConfig.hmacSHA512(VnPayConfig.vnp_HashSecret, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VnPayConfig.vnp_PayUrl + "?" + queryUrl;
+        UrlDetail url = new UrlDetail(paymentUrl);
         System.out.println("link_vnPay: "+paymentUrl);
-        return ResponseEntity.ok().body(paymentUrl);
+        return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
     @PostMapping("/query")
