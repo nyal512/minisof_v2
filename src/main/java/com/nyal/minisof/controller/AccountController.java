@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +77,7 @@ public class AccountController{
                 String password = ConvertPasswordMD5.convertHashToString(account.getPassword());
                 account.setPassword(password);
                 account.setRole(USER);
-                account.setCreated(new Date());
+                account.setCreated(covertDate(new Date()));
                 accountService.save(account);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
@@ -86,13 +87,18 @@ public class AccountController{
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
     }
-    @PutMapping("/editAccount") // áp dụng cho tài khoản admin
+    @PutMapping("/editAccount")
     public ResponseEntity<Boolean> editAccount(@RequestBody AccountEntity account) {
         AccountEntity existingAccount = accountService.getAccountByUsername(account.getUsername());
         if (existingAccount != null) {
             existingAccount.setAccountId(account.getAccountId());
+            existingAccount.setUsername(account.getUsername());
+            existingAccount.setPassword(account.getPassword());
             existingAccount.setRole(account.getRole());
-            accountService.save(existingAccount);
+            existingAccount.setCreated(account.getCreated());
+            existingAccount.setUser(account.getUser());
+            existingAccount.setTokenList(account.getTokenList());
+            accountService.save(account);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
@@ -149,5 +155,10 @@ public class AccountController{
             return PASSWORD_INVALID_REGISTER;
         }
         return RESULT_OK;
+    }
+    public String covertDate(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
     }
 }

@@ -17,15 +17,17 @@ public class ProductEntity implements Serializable {
     private Date created;
     private String descriptions;
     private int status;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private ProductCartEntity productCart;
 
     public ProductEntity() {
     }
 
-    public ProductEntity(int productId, String name, double price, String image, Date created, String descriptions, int status, CategoryEntity category) {
+    public ProductEntity(int productId, String name, double price, String image, Date created, String descriptions, int status, CategoryEntity category, ProductCartEntity productCart) {
         this.productId = productId;
         this.name = name;
         this.price = price;
@@ -34,6 +36,7 @@ public class ProductEntity implements Serializable {
         this.descriptions = descriptions;
         this.status = status;
         this.category = category;
+        this.productCart = productCart;
     }
 
     public int getProductId() {
@@ -98,5 +101,13 @@ public class ProductEntity implements Serializable {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public ProductCartEntity getProductCart() {
+        return productCart;
+    }
+
+    public void setProductCart(ProductCartEntity productCart) {
+        this.productCart = productCart;
     }
 }

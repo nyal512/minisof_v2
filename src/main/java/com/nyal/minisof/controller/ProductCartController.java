@@ -2,6 +2,8 @@ package com.nyal.minisof.controller;
 
 import com.nyal.minisof.model.CategoryEntity;
 import com.nyal.minisof.model.ProductCartEntity;
+import com.nyal.minisof.model.ProductEntity;
+import com.nyal.minisof.service.product.ProductService;
 import com.nyal.minisof.service.product_cart.ProductCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import java.util.List;
 public class ProductCartController {
     @Autowired
     ProductCartService productCartService;
+    @Autowired
+    ProductService productService;
     @GetMapping("/getProductCart")
     public ResponseEntity<ProductCartEntity> getProductCart(@RequestParam("product_cart_id") Integer productCartId){
         if (productCartService != null){
@@ -40,13 +44,23 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/addProductToCart")
-    public ResponseEntity<Boolean> addProductToCart(ProductCartEntity productCart){
-        if (productCartService != null && productCart != null){
-            if (!productCartService.existByProductId(productCart.getProduct().getProductId())){
+    public ResponseEntity<Boolean> addProductToCart(@RequestParam("product_id") int productId){
+        ProductEntity product = productService.findById(productId).get();
+        if (productCartService != null){
+            if (!productCartService.existByProductId(productId)){
+                ProductCartEntity productCart = new ProductCartEntity();
+                productCart.setQuantity(1);
+                productCart.setProduct(product);
+                productCart.setPrice(product.getPrice());
                 productCartService.save(productCart);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                ProductCartEntity productCart = productCartService.findByProductId(productId);
+                productCart.setQuantity(productCart.getQuantity()+1);
+                productCart.setPrice(productCart.getPrice()+product.getPrice());
+                productCart.setProduct(product);
+                productCartService.save(productCart);
+                return new ResponseEntity<>(true, HttpStatus.OK);
             }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,7 +83,7 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@RequestParam("product_cart_id") int productCartId) {
+    public ResponseEntity<Boolean> deleteProductCart(@RequestParam("product_cart_id") int productCartId) {
         ProductCartEntity existingProductCart = productCartService.findById(productCartId).get();
         if (existingProductCart != null) {
             productCartService.delete(existingProductCart);

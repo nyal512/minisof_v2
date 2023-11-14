@@ -11,9 +11,8 @@ public class ProductCartEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productCartId;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "product_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "productId")
     private ProductEntity product;
 
     private int quantity;

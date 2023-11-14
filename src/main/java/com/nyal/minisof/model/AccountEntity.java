@@ -15,7 +15,7 @@ public class AccountEntity implements Serializable {
     private String username;
     private String password;
     private int role;
-    private Date created;
+    private String created;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
@@ -27,7 +27,7 @@ public class AccountEntity implements Serializable {
     public AccountEntity() {
     }
 
-    public AccountEntity(int accountId, String username, String password, int role, Date created, UserEntity user, List<TokenEntity> tokenList) {
+    public AccountEntity(int accountId, String username, String password, int role, String created, UserEntity user, List<TokenEntity> tokenList) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
@@ -69,11 +69,11 @@ public class AccountEntity implements Serializable {
         this.role = role;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 

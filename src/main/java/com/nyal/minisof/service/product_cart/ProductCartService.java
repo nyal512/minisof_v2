@@ -14,6 +14,7 @@ public interface ProductCartService {
     boolean existByProductId(Integer productId);
     List<ProductCartEntity> findAll();
     Optional<ProductCartEntity> findById(Integer productCartId);
+    ProductCartEntity findByProductId(int productId);
     ProductCartEntity save(ProductCartEntity productCart);
     List<ProductCartEntity> saveAll(List<ProductCartEntity> listProductCart);
 }

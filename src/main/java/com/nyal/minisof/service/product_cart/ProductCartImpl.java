@@ -49,6 +49,11 @@ public class ProductCartImpl implements ProductCartService{
     }
 
     @Override
+    public ProductCartEntity findByProductId(int productId) {
+        return productCartRepository.findByProductId(productId);
+    }
+
+    @Override
     public ProductCartEntity save(ProductCartEntity productCart) {
         return productCartRepository.save(productCart);
     }

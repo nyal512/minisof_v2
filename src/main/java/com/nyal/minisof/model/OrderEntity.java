@@ -11,9 +11,6 @@ public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
-    private String customerName;
-    private String customerAddress;
-    private String customerPhone;
     private String message;
     private Integer status;
     private String transport;
@@ -28,13 +25,9 @@ public class OrderEntity implements Serializable {
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, String customerName, String customerAddress, String customerPhone,
-                       String message, Integer status,
+    public OrderEntity(int orderId, String message, Integer status,
                        String transport, AccountEntity account, List<OrderDetailEntity> orderDetails) {
         this.orderId = orderId;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerPhone = customerPhone;
         this.message = message;
         this.status = status;
         this.transport = transport;
@@ -48,30 +41,6 @@ public class OrderEntity implements Serializable {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
     }
 
     public String getMessage() {
