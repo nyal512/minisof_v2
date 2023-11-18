@@ -21,7 +21,7 @@ public class PaymentController {
     @Autowired
     VNPayService vnPayService;
     @PostMapping("/payment")
-    public ResponseEntity<?> createPayment(@RequestBody PaymentDTO payment, HttpServletRequest request) throws IOException{
+    public ResponseEntity<?> createPayment(@RequestBody PaymentDTO payment, HttpServletRequest request){
         String vnpayUrl = vnPayService.createOrder(payment.getAmount(), payment.getDescription());
         UrlDetail url = new UrlDetail(vnpayUrl);
         return new ResponseEntity<>(url,HttpStatus.OK);

@@ -11,48 +11,10 @@ import java.util.*;
 
 public class VnPayConfig {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://10.1.44.186:2505/api/pay/vnPay/result";
+    public static String vnp_ReturnUrl = "http://192.168.1.157:2505/api/pay/vnPay/result";
     public static String vnp_TmnCode = "W107UBIY";
     public static String secretKey = "SGUSYVVHQUSQYSXAGJRECXFVCIZOEIFR";
-    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchantv2/";
 
-    public static String md5(String message) {
-        String digest = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(message.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder(2 * hash.length);
-            for (byte b : hash) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            digest = sb.toString();
-        } catch (UnsupportedEncodingException ex) {
-            digest = "";
-        } catch (NoSuchAlgorithmException ex) {
-            digest = "";
-        }
-        return digest;
-    }
-
-    public static String Sha256(String message) {
-        String digest = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(message.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder(2 * hash.length);
-            for (byte b : hash) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            digest = sb.toString();
-        } catch (UnsupportedEncodingException ex) {
-            digest = "";
-        } catch (NoSuchAlgorithmException ex) {
-            digest = "";
-        }
-        return digest;
-    }
-
-    //Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -94,19 +56,6 @@ public class VnPayConfig {
         } catch (Exception ex) {
             return "";
         }
-    }
-
-    public static String getIpAddress(HttpServletRequest request) {
-        String ipAdress;
-        try {
-            ipAdress = request.getHeader("X-FORWARDED-FOR");
-            if (ipAdress == null) {
-                ipAdress = request.getRemoteAddr();
-            }
-        } catch (Exception e) {
-            ipAdress = "Invalid IP:" + e.getMessage();
-        }
-        return ipAdress;
     }
 
     public static String getRandomNumber(int len) {

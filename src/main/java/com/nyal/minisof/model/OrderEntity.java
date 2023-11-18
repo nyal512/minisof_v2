@@ -1,38 +1,39 @@
 package com.nyal.minisof.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
-    private String message;
     private Integer status;
-    private String transport;
-
+    private boolean payment;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private AccountEntity account;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDetailEntity> orderDetails;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
+
+    private Integer quantity;
+    private String transport;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, String message, Integer status,
-                       String transport, AccountEntity account, List<OrderDetailEntity> orderDetails) {
+    public OrderEntity(int orderId, Integer status, AccountEntity account,
+                       ProductEntity product, Integer quantity,
+                       boolean payment, String transport) {
         this.orderId = orderId;
-        this.message = message;
         this.status = status;
-        this.transport = transport;
         this.account = account;
-        this.orderDetails = orderDetails;
+        this.product = product;
+        this.quantity = quantity;
+        this.payment = payment;
+        this.transport = transport;
     }
 
     public int getOrderId() {
@@ -43,28 +44,12 @@ public class OrderEntity implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getTransport() {
-        return transport;
-    }
-
-    public void setTransport(String transport) {
-        this.transport = transport;
     }
 
     public AccountEntity getAccount() {
@@ -75,11 +60,35 @@ public class OrderEntity implements Serializable {
         this.account = account;
     }
 
-    public List<OrderDetailEntity> getOrderDetails() {
-        return orderDetails;
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public void setOrderDetails(List<OrderDetailEntity> orderDetails) {
-        this.orderDetails = orderDetails;
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public boolean isPayment() {
+        return payment;
+    }
+
+    public void setPayment(boolean payment) {
+        this.payment = payment;
+    }
+
+    public String getTransport() {
+        return transport;
+    }
+
+    public void setTransport(String transport) {
+        this.transport = transport;
     }
 }

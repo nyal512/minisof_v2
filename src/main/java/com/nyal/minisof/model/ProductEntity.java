@@ -1,6 +1,8 @@
 package com.nyal.minisof.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +16,11 @@ public class ProductEntity implements Serializable {
     private String name;
     private double price;
     private String image;
+    @JsonProperty("callEndTime")
+    @Column(name = "call_end_ts")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
     private Date created;
+    @Lob
     private String descriptions;
     private int status;
     @ManyToOne

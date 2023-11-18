@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
-    @Query(value = "select * from  `order_entity` where account_id= ?1 and `status` = ?2 order by id desc", nativeQuery = true)
+    @Query(value = "select * from  `order_entity` where account_id= ?1 and `status` = ?2", nativeQuery = true)
     public List<OrderEntity> getByAccountIdAndStatus(Integer accountId, Integer status);
     @Modifying(clearAutomatically = true)
     @Transactional
