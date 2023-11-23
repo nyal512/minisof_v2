@@ -13,7 +13,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
     public List<OrderEntity> getByAccountIdAndStatus(Integer accountId, Integer status);
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "update `order_entity` set status = ?1 where id = ?2", nativeQuery = true)
+    @Query(value = "update `order_entity` set status = ?1 where order_id = ?2", nativeQuery = true)
     public void updateStatus(Integer status, Integer orderId);
     @Query(value = "select * from `order_entity` where status= ?1 order by desc", nativeQuery = true)
     public List<OrderEntity> getAllByStatus(Integer status);
