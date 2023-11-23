@@ -17,4 +17,5 @@ public interface ProductCartService {
     ProductCartEntity findByProductId(int productId);
     ProductCartEntity save(ProductCartEntity productCart);
     List<ProductCartEntity> saveAll(List<ProductCartEntity> listProductCart);
+    List<ProductCartEntity> getAllProductCartByAccountId(int accountId);
 }

@@ -23,11 +23,15 @@ public class AccountEntity implements Serializable {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<TokenEntity> tokenList;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ProductCartEntity> productCartList;
 
     public AccountEntity() {
     }
 
-    public AccountEntity(int accountId, String username, String password, int role, String created, UserEntity user, List<TokenEntity> tokenList) {
+    public AccountEntity(int accountId, String username, String password, int role, String created, UserEntity user,
+                         List<TokenEntity> tokenList, List<ProductCartEntity> productCartList) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
@@ -35,6 +39,7 @@ public class AccountEntity implements Serializable {
         this.created = created;
         this.user = user;
         this.tokenList = tokenList;
+        this.productCartList = productCartList;
     }
 
     public int getAccountId() {
@@ -91,5 +96,13 @@ public class AccountEntity implements Serializable {
 
     public void setTokenList(List<TokenEntity> tokenList) {
         this.tokenList = tokenList;
+    }
+
+    public List<ProductCartEntity> getProductCartList() {
+        return productCartList;
+    }
+
+    public void setProductCartList(List<ProductCartEntity> productCartList) {
+        this.productCartList = productCartList;
     }
 }

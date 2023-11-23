@@ -1,6 +1,6 @@
 package com.nyal.minisof.controller;
 
-import com.nyal.minisof.model.CategoryEntity;
+import com.nyal.minisof.model.AccountEntity;
 import com.nyal.minisof.model.ProductCartEntity;
 import com.nyal.minisof.model.ProductEntity;
 import com.nyal.minisof.service.product.ProductService;
@@ -31,6 +31,18 @@ public class ProductCartController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @GetMapping("/productCartByAccount")
+    public ResponseEntity<List<ProductCartEntity>> getAllProductCartByAccount(@RequestParam("account_id") Integer account_id){
+        if (productCartService != null){
+             List<ProductCartEntity> productCartList = productCartService.getAllProductCartByAccountId(account_id);
+             if (productCartList != null){
+                 return new ResponseEntity<>(productCartList, HttpStatus.OK);
+             } else {
+                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+             }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     @GetMapping("/getCart")
     public ResponseEntity<List<ProductCartEntity>> getCart(){
         if (productCartService != null){
@@ -44,7 +56,7 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/addProductToCart")
-    public ResponseEntity<Boolean> addProductToCart(@RequestParam("product_id") int productId){
+    public ResponseEntity<Boolean> addProductToCart(@RequestParam("product_id") int productId, @RequestBody AccountEntity account){
         ProductEntity product = productService.findById(productId).get();
         if (productCartService != null){
             if (!productCartService.existByProductId(productId)){
@@ -52,6 +64,7 @@ public class ProductCartController {
                 productCart.setQuantity(1);
                 productCart.setProduct(product);
                 productCart.setPrice(product.getPrice());
+                productCart.setAccount(account);
                 productCartService.save(productCart);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
@@ -59,6 +72,7 @@ public class ProductCartController {
                 productCart.setQuantity(productCart.getQuantity()+1);
                 productCart.setPrice(productCart.getPrice()+product.getPrice());
                 productCart.setProduct(product);
+                productCart.setAccount(account);
                 productCartService.save(productCart);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             }
@@ -66,7 +80,7 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PutMapping("/editProductToCart")
-    public ResponseEntity<Boolean> editProductToCart(ProductCartEntity productCart){
+    public ResponseEntity<Boolean> editProductToCart(@RequestBody ProductCartEntity productCart, @RequestBody AccountEntity account){
         if (productCartService != null && productCart != null){
             ProductCartEntity existingProductCart = productCartService.findById(productCart.getProductCartId()).get();
             if (existingProductCart != null){
@@ -74,6 +88,7 @@ public class ProductCartController {
                 existingProductCart.setProduct(productCart.getProduct());
                 existingProductCart.setPrice(productCart.getPrice());
                 existingProductCart.setQuantity(productCart.getQuantity());
+                existingProductCart.setAccount(account);
                 productCartService.save(existingProductCart);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else{

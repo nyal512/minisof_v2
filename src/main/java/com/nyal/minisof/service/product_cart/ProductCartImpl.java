@@ -62,4 +62,9 @@ public class ProductCartImpl implements ProductCartService{
     public List<ProductCartEntity> saveAll(List<ProductCartEntity> listProductCart) {
         return productCartRepository.saveAll(listProductCart);
     }
+
+    @Override
+    public List<ProductCartEntity> getAllProductCartByAccountId(int accountId) {
+        return productCartRepository.getAllProductCartByAccountId(accountId);
+    }
 }

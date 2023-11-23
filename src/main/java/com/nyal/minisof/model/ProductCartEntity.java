@@ -17,15 +17,19 @@ public class ProductCartEntity implements Serializable {
 
     private int quantity;
     private double price;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private AccountEntity account;
 
     public ProductCartEntity() {
     }
 
-    public ProductCartEntity(int productCartId, ProductEntity product, int quantity, double price) {
+    public ProductCartEntity(int productCartId, ProductEntity product, int quantity, double price, AccountEntity account) {
         this.productCartId = productCartId;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+        this.account = account;
     }
 
     public int getProductCartId() {
@@ -58,5 +62,13 @@ public class ProductCartEntity implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public AccountEntity getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountEntity account) {
+        this.account = account;
     }
 }
