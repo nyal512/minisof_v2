@@ -19,8 +19,8 @@ public class ProductCartImpl implements ProductCartService{
     }
 
     @Override
-    public void delete(ProductCartEntity productCart) {
-        productCartRepository.delete(productCart);
+    public void delete(int productCartId) {
+        productCartRepository.deleteProductCartById(productCartId);
     }
 
     @Override

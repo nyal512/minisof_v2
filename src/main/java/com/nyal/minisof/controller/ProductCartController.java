@@ -81,7 +81,7 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PutMapping("/editProductToCart")
-    public ResponseEntity<Boolean> editProductToCart(@RequestBody ProductCartEntity productCart, @RequestBody AccountEntity account){
+    public ResponseEntity<Boolean> editProductToCart(@RequestBody ProductCartEntity productCart){
         if (productCartService != null && productCart != null){
             ProductCartEntity existingProductCart = productCartService.findById(productCart.getProductCartId()).get();
             if (existingProductCart != null){
@@ -89,7 +89,7 @@ public class ProductCartController {
                 existingProductCart.setProduct(productCart.getProduct());
                 existingProductCart.setPrice(productCart.getPrice());
                 existingProductCart.setQuantity(productCart.getQuantity());
-                existingProductCart.setAccount(account);
+                existingProductCart.setAccount(productCart.getAccount());
                 productCartService.save(existingProductCart);
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else{
@@ -100,12 +100,8 @@ public class ProductCartController {
     }
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteProductCart(@RequestParam("product_cart_id") int productCartId) {
-        ProductCartEntity existingProductCart = productCartService.findById(productCartId).get();
-        if (existingProductCart != null) {
-            productCartService.delete(existingProductCart);
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        productCartService.delete(productCartId);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
+
 }

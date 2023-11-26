@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductCartService {
     long count();
-    void delete(ProductCartEntity productCart);
+    void delete(int productCartId);
     void deleteAll();
     void deleteAll(List<ProductCartEntity> listProductCart);
     boolean existByProductId(Integer productId);
