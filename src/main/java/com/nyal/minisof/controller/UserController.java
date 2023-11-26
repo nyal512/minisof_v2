@@ -49,7 +49,7 @@ public class UserController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@RequestParam("name") String name) {
+    public ResponseEntity<Boolean> deleteUser(@RequestParam("name") String name) {
         UserEntity existingUser = userService.getUserByName(name);
         if (existingUser != null) {
             userService.delete(existingUser);

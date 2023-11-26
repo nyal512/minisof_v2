@@ -60,7 +60,8 @@ public class OrderController {
         }
     }
     @PutMapping("/updateStatus")
-    public ResponseEntity<Boolean> updateOrder(@RequestParam("order_id") Integer orderId, @RequestParam("status") Integer status){
+    public ResponseEntity<Boolean> editOrder(@RequestParam("order_id") Integer orderId,
+                                             @RequestParam("status") Integer status){
         if (orderService != null){
             orderService.updateStatus(status, orderId);
             return new ResponseEntity<>(true, HttpStatus.OK);

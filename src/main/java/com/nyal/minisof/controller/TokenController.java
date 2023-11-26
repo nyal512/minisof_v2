@@ -57,7 +57,8 @@ public class TokenController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/logout")
-    public ResponseEntity<Boolean> logout(@RequestParam("username") String username, @RequestParam("device_token") String deviceToken){
+    public ResponseEntity<Boolean> deleteToken(@RequestParam("username") String username,
+                                          @RequestParam("device_token") String deviceToken){
         if(accountService != null && tokenService != null){
             AccountEntity account = accountService.getAccountByUsername(username);
             if (account != null){

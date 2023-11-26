@@ -21,7 +21,7 @@ public class ResetPasswordController {
     @Autowired
     AccountService accountService;
     @GetMapping("/getCode")
-    public ResponseEntity<String> getCode(@RequestParam("number_phone") String numberPhone){
+    public ResponseEntity<String> getVerifyCode(@RequestParam("number_phone") String numberPhone){
         if (userService != null){
             UserEntity user = userService.findByNumberPhone(numberPhone).get();
             if (user != null && user.getVerifyCode() != null){
@@ -33,7 +33,7 @@ public class ResetPasswordController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/sendVerifyCode")
-    public ResponseEntity<String> sendVerifyCode(@RequestParam("number_phone") String numberPhone){
+    public ResponseEntity<String> addVerifyCode(@RequestParam("number_phone") String numberPhone){
         if (userService != null){
             UserEntity user = userService.findByNumberPhone(numberPhone).get();
             if (user != null){
@@ -48,7 +48,8 @@ public class ResetPasswordController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/verifyCode")
-    public ResponseEntity<Boolean> verifyCode(@RequestParam("number_phone") String numberPhone, @RequestParam("code") String code){
+    public ResponseEntity<Boolean> verifyCode(@RequestParam("number_phone")
+                                                  String numberPhone, @RequestParam("code") String code){
         if (userService != null){
             UserEntity user = userService.findByNumberPhone(numberPhone).get();
             if (user != null && user.getVerifyCode().equals(code)){
@@ -63,7 +64,10 @@ public class ResetPasswordController {
         return String.valueOf(new Random().nextInt(9000) + 1000);
     }
     @PostMapping("/resetPassword")
-    public ResponseEntity<Boolean> resetPassword(@RequestParam("number_phone") String numberPhone,@RequestParam("new_password") String newPass, @RequestParam("confirm_password") String confirmPass) throws NoSuchAlgorithmException {
+    public ResponseEntity<Boolean> changePass(@RequestParam("number_phone") String numberPhone,
+                                              @RequestParam("new_password") String newPass,
+                                              @RequestParam("confirm_password") String confirmPass)
+            throws NoSuchAlgorithmException {
         if (userService != null && accountService != null && userService.findByNumberPhone(numberPhone).get() != null){
             UserEntity user = userService.findByNumberPhone(numberPhone).get();
             AccountEntity account = accountService.findByUserId(user.getUserId());

@@ -119,7 +119,7 @@ public class ProductController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@RequestParam("product_id") Integer product_id) {
+    public ResponseEntity<Boolean> deleteProduct(@RequestParam("product_id") Integer product_id) {
         ProductEntity existingProduct = productService.findById(product_id).get();
         if (existingProduct != null) {
             productService.delete(existingProduct);

@@ -71,7 +71,7 @@ public class AccountController{
         }
     }
     @PostMapping("/register")
-    public ResponseEntity<Boolean> register(@RequestBody AccountEntity account) throws NoSuchAlgorithmException {
+    public ResponseEntity<Boolean> addAccount(@RequestBody AccountEntity account) throws NoSuchAlgorithmException {
         if (!accountService.exist(account.getUsername())) {
             if (validatePassword(account.getPassword())== RESULT_OK){
                 String password = ConvertPasswordMD5.convertHashToString(account.getPassword());
@@ -105,7 +105,7 @@ public class AccountController{
         }
     }
     @PutMapping("/changePassword")
-    public ResponseEntity<Boolean> changePassword(
+    public ResponseEntity<Boolean> changePass(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("new_password") String newPassword,

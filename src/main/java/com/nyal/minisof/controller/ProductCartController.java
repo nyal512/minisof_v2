@@ -56,7 +56,8 @@ public class ProductCartController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping("/addProductToCart")
-    public ResponseEntity<Boolean> addProductToCart(@RequestParam("product_id") int productId, @RequestBody AccountEntity account){
+    public ResponseEntity<Boolean> addProductToCart(@RequestParam("product_id") int productId,
+                                                    @RequestBody AccountEntity account){
         ProductEntity product = productService.findById(productId).get();
         if (productCartService != null){
             if (!productCartService.existByProductId(productId)){
